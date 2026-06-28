@@ -36,6 +36,7 @@ let operator;
 const digits = document.querySelectorAll('.digit');
 const operators = document.querySelectorAll('.operator');
 const screen = document.querySelector('.screen');
+const equalsBtn = document.querySelector('#equals-btn');
 
 digits.forEach(digit => {
     digit.addEventListener('click', () => {
@@ -57,4 +58,14 @@ operators.forEach(op => {
         spanElement.textContent = op.textContent;
         screen.appendChild(spanElement);
     })
+})
+
+equalsBtn.addEventListener('click', () => {
+    firstNum = parseInt(firstNum);
+    secondNum = parseInt(secondNum);
+    const result = operate(firstNum, secondNum, operator);
+    const spanElement = document.createElement('span');
+    spanElement.textContent = result;
+    screen.replaceChildren();
+    screen.appendChild(spanElement);
 })
