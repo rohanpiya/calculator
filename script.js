@@ -29,9 +29,17 @@ function operate(firstNum, secondNum, operator) {
     }
 }
 
+function clearCalculator() {
+    firstNum = '';
+    secondNum = '';
+    operator = undefined;
+    screen.replaceChildren();
+}
+
 let firstNum = '';
 let secondNum = '';
 let operator;
+let isResultOn = false;
 
 const digits = document.querySelectorAll('.digit');
 const operators = document.querySelectorAll('.operator');
@@ -41,6 +49,10 @@ const clearBtn = document.querySelector('#clear-btn');
 
 digits.forEach(digit => {
     digit.addEventListener('click', () => {
+        if (isResultOn == true) {
+            clearCalculator();
+            isResultOn = false;
+        }
         if(operator == undefined) {
             firstNum = firstNum + digit.textContent;
         } else {
@@ -69,11 +81,7 @@ equalsBtn.addEventListener('click', () => {
     spanElement.textContent = result;
     screen.replaceChildren();
     screen.appendChild(spanElement);
+    isResultOn = true;
 })
 
-clearBtn.addEventListener('click', () => {
-    screen.replaceChildren();
-    firstNum = '';
-    secondNum = '';
-    operator = undefined;
-})
+clearBtn.addEventListener('click', clearCalculator);
