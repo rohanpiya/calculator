@@ -37,6 +37,7 @@ const digits = document.querySelectorAll('.digit');
 const operators = document.querySelectorAll('.operator');
 const screen = document.querySelector('.screen');
 const equalsBtn = document.querySelector('#equals-btn');
+const clearBtn = document.querySelector('#clear-btn');
 
 digits.forEach(digit => {
     digit.addEventListener('click', () => {
@@ -68,4 +69,11 @@ equalsBtn.addEventListener('click', () => {
     spanElement.textContent = result;
     screen.replaceChildren();
     screen.appendChild(spanElement);
+})
+
+clearBtn.addEventListener('click', () => {
+    screen.replaceChildren();
+    firstNum = '';
+    secondNum = '';
+    operator = undefined;
 })
