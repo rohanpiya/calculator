@@ -18,6 +18,8 @@ function divide(a, b) {
 }
 
 function operate(firstNum, secondNum, operator) {
+    firstNum = parseInt(firstNum);
+    secondNum = parseInt(secondNum);
     if (operator == '+') {
         return add(firstNum, secondNum);
     } else if (operator == '-') {
@@ -53,11 +55,11 @@ digits.forEach(digit => {
             clearCalculator();
             isResultOn = false;
         }
-        if(operator == undefined) {
+        if (operator == undefined) {
             firstNum = firstNum + digit.textContent;
         } else {
             secondNum = secondNum + digit.textContent;
-        } 
+        }
         const spanElement = document.createElement('span');
         spanElement.textContent = digit.textContent;
         screen.appendChild(spanElement);
@@ -66,6 +68,15 @@ digits.forEach(digit => {
 
 operators.forEach(op => {
     op.addEventListener('click', () => {
+        if (firstNum && secondNum && operator) {
+            const result = operate(firstNum, secondNum, operator);
+            const spanElement = document.createElement('span');
+            spanElement.textContent = result;
+            screen.replaceChildren();
+            screen.appendChild(spanElement);
+            firstNum = result;
+            secondNum = '';
+        }
         operator = op.textContent
         const spanElement = document.createElement('span');
         spanElement.textContent = op.textContent;
@@ -74,8 +85,6 @@ operators.forEach(op => {
 })
 
 equalsBtn.addEventListener('click', () => {
-    firstNum = parseInt(firstNum);
-    secondNum = parseInt(secondNum);
     const result = operate(firstNum, secondNum, operator);
     const spanElement = document.createElement('span');
     spanElement.textContent = result;
