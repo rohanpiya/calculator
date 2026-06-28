@@ -45,7 +45,7 @@ const equalsBtn = document.querySelector('#equals-btn');
 const clearBtn = document.querySelector('#clear-btn');
 
 function updateDisplay() {
-    if(firstNum === '' && secondNum === '' && operator === '') {
+    if (firstNum === '' && secondNum === '' && operator === '') {
         screen.textContent = 0;
     } else {
         screen.textContent = `${firstNum} ${operator} ${secondNum}`.trim();
@@ -76,14 +76,14 @@ digits.forEach(digit => {
 
 operators.forEach(op => {
     op.addEventListener('click', () => {
-        if(shouldResetScreen) {
+        if (shouldResetScreen) {
             shouldResetScreen = false;
         }
 
         if (firstNum != '' && secondNum != '' && operator != '') {
             let result = operate(firstNum, secondNum, operator);
-            
-            if(typeof result === 'number') {
+
+            if (typeof result === 'number') {
                 result = Math.round(result * 1000000) / 1000000;
             }
 
@@ -99,12 +99,19 @@ operators.forEach(op => {
 })
 
 equalsBtn.addEventListener('click', () => {
-    const result = operate(firstNum, secondNum, operator);
-    const spanElement = document.createElement('span');
-    spanElement.textContent = result;
-    screen.replaceChildren();
-    screen.appendChild(spanElement);
-    isResultOn = true;
+    if (firstNum === '' || operator === '' || secondNum === '') return;
+
+    let result = operate(firstNum, secondNum, operator);
+
+    if (typeof result === 'number') {
+        result = Math.round(result * 1000000) / 1000000;
+    }
+
+    firstNum = result.toString();
+    secondNum = '';
+    operator = '';
+    shouldResetScreen = true;
+    screen.textContent = result;
 })
 
 clearBtn.addEventListener('click', clearCalculator);
