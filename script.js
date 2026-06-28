@@ -34,7 +34,7 @@ let secondNum = '';
 let operator;
 
 const digits = document.querySelectorAll('.digit');
-const operators = document.querySelectorAll('operator');
+const operators = document.querySelectorAll('.operator');
 const screen = document.querySelector('.screen');
 
 digits.forEach(digit => {
@@ -46,6 +46,15 @@ digits.forEach(digit => {
         } 
         const spanElement = document.createElement('span');
         spanElement.textContent = digit.textContent;
+        screen.appendChild(spanElement);
+    })
+})
+
+operators.forEach(op => {
+    op.addEventListener('click', () => {
+        operator = op.textContent
+        const spanElement = document.createElement('span');
+        spanElement.textContent = op.textContent;
         screen.appendChild(spanElement);
     })
 })
